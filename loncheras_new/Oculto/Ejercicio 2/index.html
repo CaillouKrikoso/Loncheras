@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <title>Ejemplo de jQuery, HTML, AJAX y Bootstrap 5</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Ejemplo de jQuery, HTML, AJAX y Bootstrap 5</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                </tr>
+            </thead>
+            <tbody id="result"></tbody>
+        </table>
+        <button id="load-data" class="btn btn-primary mt-3">Cargar Datos</button>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#load-data').click(function () {
+                $.ajax({
+                    url: 'datos.json', // Ruta del archivo JSON que contiene los datos
+
+                    dataType: 'json',
+                    success: function (data) {
+                        var resultHTML = '';
+                        $.each(data, function (index, item) {
+                            // Agregar la información del usuario al HTML 
+                            resultHTML += '<tr><td>' + item.name + '</td><td>' + item.email + '</td><tr>';
+                        })
+                        $('#result').html(resultHTML); // Insertar el HTML generado en la tabla
+                    },
+                    error: function () {
+                        alert('Ha ocurrido un error al cargar los datos')
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
